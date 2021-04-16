@@ -1,28 +1,71 @@
-// fib takes fib(a-1) + fib(a-2) = result
+// First version
 
-// NBM (*not by myself*)
-function fib(num, previous = []) {
-  if (previous[num] !== undefined) {
-    return previous[num];
+// const bodyElement = document.querySelector('body');
+
+// const ul = document.createElement('ul');
+
+// function createList(num, parentElement, text) {
+//   const fragment = document.createDocumentFragment();
+//   for (let i = 0; i < num; i += 1) {
+//     const li = document.createElement('li');
+//     li.textContent = `${text} ${i}`;
+
+//     fragment.appendChild(li);
+//   }
+
+//   parentElement.appendChild(fragment);
+
+//   return parentElement;
+// }
+
+// bodyElement.appendChild(createList(5, ul, 'Element number:'));
+
+//==============================================================
+
+// second
+
+// const bodyElement = document.querySelector('body');
+
+// function createList(num, parentElement, text) {
+//   const ul = document.createElement('ul');
+
+//   const fragment = document.createDocumentFragment();
+//   for (let i = 0; i < num; i += 1) {
+//     const li = document.createElement('li');
+//     li.textContent = `${text} ${i}`;
+
+//     fragment.appendChild(li);
+//   }
+
+//   ul.appendChild(fragment);
+
+//   parentElement.appendChild(ul);
+// }
+
+// createList(5, bodyElement, 'Element number:');
+
+//==============================================================
+
+// Third version
+
+const listText = ['First:', 'Second:', 'Third:', 'Fourth:', 'Fifth:'];
+
+const bodyElement = document.querySelector('body');
+
+function createList(num, text) {
+  const ul = document.createElement('ul');
+
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < num; i += 1) {
+    const li = document.createElement('li');
+    li.textContent = `${text[i]} ${i + 1}`;
+
+    fragment.appendChild(li);
   }
 
-  let result;
+  ul.appendChild(fragment);
 
-  if (num <= 2) {
-    result = 1;
-  } else {
-    result = fib(num - 1, previous) + fib(num - 2, previous);
-  }
-
-  previous[num] = result;
-
-  return result;
+  return ul;
 }
 
-console.log(fib(5));
-// fib(5)
-// fib(5 - 1 = 4, []) + fib( 5 - 3 = 2, [])
-// fib(4 - 1 = 3, []) + 2
-// 3 + 2
-
-// Need to more explore
+bodyElement.appendChild(createList(5, listText));
