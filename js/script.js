@@ -48,7 +48,8 @@
 
 // Third version
 
-const listText = ['First:', 'Second:', 'Third:', 'Fourth:', 'Fifth:'];
+const mainListText = ['First:', 'Second:', 'Third:', 'Fourth:', 'Fifth:'];
+const secondaryListText = ['but', 'text', 'is', 'not', 'unique'];
 
 const bodyElement = document.querySelector('body');
 
@@ -68,4 +69,17 @@ function createList(num, text) {
   return ul;
 }
 
-bodyElement.appendChild(createList(5, listText));
+const mainList = createList(5, mainListText);
+const secondaryList = createList(5, secondaryListText);
+
+bodyElement.insertAdjacentElement('afterbegin', mainList);
+bodyElement.insertAdjacentElement('beforeend', secondaryList);
+
+const omg = document.createElement('h2');
+omg.textContent = 'I am out of control';
+bodyElement.insertAdjacentElement('beforebegin', omg);
+
+const lol = document.createElement('h1');
+lol.textContent = 'Even crazier';
+const html = omg.parentElement;
+html.insertAdjacentElement('afterbegin', lol);
