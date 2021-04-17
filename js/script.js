@@ -33,23 +33,14 @@ const setMyTimer = (delay, data) => {
   return promise;
 };
 
-const getLocationHandler = () => {
-  let positionData;
-  getLocation()
-    .then((position) => {
-      positionData = position;
-      return setMyTimer(1000);
-    })
-    .catch((error) => {
-      console.log(error);
-      return 'Backup data';
-    })
-    .then((data) => {
-      console.log(data, positionData);
-    });
+const getLocationHandler = async () => {
+  const positionData = await getLocation();
+  const timerData = await setMyTimer(1000);
 
-  setMyTimer(1000).then(() => console.log('Timer done!'));
-  console.log('Getting position ...');
+  console.log(positionData, timerData);
+
+  // setMyTimer(1000).then(() => console.log('Timer done!'));
+  // console.log('Getting position ...');
 };
 
 button.addEventListener('click', getLocationHandler);
