@@ -11,7 +11,7 @@ const getLocation = (options) => {
   const promise = new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
       (positionData) => {
-        resolve(setMyTimer(1000, positionData));
+        resolve(positionData);
       },
       (error) => {},
       options
@@ -24,7 +24,7 @@ const getLocation = (options) => {
 const setMyTimer = (delay, data) => {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({ text: 'My Promise Text', data: data });
+      resolve('Timer resolved');
     }, delay);
   });
 
@@ -32,9 +32,10 @@ const setMyTimer = (delay, data) => {
 };
 
 const getLocationHandler = () => {
-  getLocation().then((data) => console.log(data.text, data.data));
+  getLocation().then((data) => console.log(data));
 
-  setMyTimer(1000).then(() => console.log('i am first now second'));
+  setMyTimer(1000).then((message) => console.log(message));
+  console.log('Getting position ...');
 };
 
 button.addEventListener('click', getLocationHandler);
