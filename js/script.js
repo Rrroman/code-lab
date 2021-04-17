@@ -7,13 +7,27 @@ button.textContent = 'Get Location';
 
 bodyElement.appendChild(button);
 
+const setMyTimer = (delay, data) => {
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ message: 'My Promise Text', accuracy: data?.coords?.accuracy });
+    }, delay);
+  });
+
+  return promise;
+};
+
 const getLocationHandler = () => {
   navigator.geolocation.getCurrentPosition(
     (positionData) => {
-      setTimeout(() => {
-        console.log('After setTimeout will be last');
-      }, 1000);
-      console.log(positionData);
+      setMyTimer(1000, positionData).then((data) =>
+        console.log(
+          'After setTimeout will be last',
+          data.message,
+          data.accuracy,
+          positionData
+        )
+      );
     },
     (error) => console.log(error)
   );
