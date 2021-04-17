@@ -34,8 +34,16 @@ const setMyTimer = (delay, data) => {
 };
 
 const getLocationHandler = async () => {
-  const positionData = await getLocation();
-  const timerData = await setMyTimer(1000);
+  let positionData;
+  let timerData;
+  try {
+    positionData = await getLocation();
+    timerData = await setMyTimer(1000);
+  } catch (error) {
+    console.log(error);
+    positionData = 'Please try later again';
+    timerData = 'Backup data [], {} ...';
+  }
 
   console.log(positionData, timerData);
 
