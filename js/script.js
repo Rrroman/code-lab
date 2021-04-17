@@ -10,7 +10,11 @@ bodyElement.appendChild(button);
 const setMyTimer = (delay, data) => {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({ message: 'My Promise Text', accuracy: data?.coords?.accuracy });
+      resolve({
+        message: 'My Promise Text',
+        accuracy: data?.coords?.accuracy,
+      });
+      console.log('I am nested inside setMyTimer');
     }, delay);
   });
 
@@ -24,15 +28,17 @@ const getLocationHandler = () => {
         console.log(
           'After setTimeout will be last',
           data.message,
-          data.accuracy,
-          positionData
+          data.accuracy
         )
       );
     },
     (error) => console.log(error)
   );
 
-  setTimeout(() => console.log('Obvious will be second'), 0);
+  setMyTimer(2000).then(() =>
+    console.log('So now i am last because of time i guess')
+  );
+  setMyTimer(1000).then(() => console.log('Not so Obvious but still second'));
 
   console.log('After getting location in code but prints before');
 };
