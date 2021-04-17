@@ -13,7 +13,9 @@ const getLocation = (options) => {
       (positionData) => {
         resolve(positionData);
       },
-      (error) => {},
+      (error) => {
+        reject(error);
+      },
       options
     );
   });
@@ -32,9 +34,21 @@ const setMyTimer = (delay, data) => {
 };
 
 const getLocationHandler = () => {
-  getLocation().then((data) => console.log(data));
+  let positionData;
+  getLocation()
+    .then((position) => {
+      positionData = position;
+      return setMyTimer(1000);
+    })
+    .catch((error) => {
+      console.log(error);
+      return 'Backup data';
+    })
+    .then((data) => {
+      console.log(data, positionData);
+    });
 
-  setMyTimer(1000).then((message) => console.log(message));
+  setMyTimer(1000).then(() => console.log('Timer done!'));
   console.log('Getting position ...');
 };
 
