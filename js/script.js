@@ -7,14 +7,24 @@ button.textContent = 'Get Location';
 
 bodyElement.appendChild(button);
 
+const getLocation = (options) => {
+  const promise = new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      (positionData) => {
+        resolve(setMyTimer(1000, positionData));
+      },
+      (error) => {},
+      options
+    );
+  });
+
+  return promise;
+};
+
 const setMyTimer = (delay, data) => {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({
-        message: 'My Promise Text',
-        accuracy: data?.coords?.accuracy,
-      });
-      console.log('I am nested inside setMyTimer');
+      resolve({ text: 'My Promise Text', data: data });
     }, delay);
   });
 
@@ -22,25 +32,9 @@ const setMyTimer = (delay, data) => {
 };
 
 const getLocationHandler = () => {
-  navigator.geolocation.getCurrentPosition(
-    (positionData) => {
-      setMyTimer(1000, positionData).then((data) =>
-        console.log(
-          'After setTimeout will be last',
-          data.message,
-          data.accuracy
-        )
-      );
-    },
-    (error) => console.log(error)
-  );
+  getLocation().then((data) => console.log(data.text, data.data));
 
-  setMyTimer(2000).then(() =>
-    console.log('So now i am last because of time i guess')
-  );
-  setMyTimer(1000).then(() => console.log('Not so Obvious but still second'));
-
-  console.log('After getting location in code but prints before');
+  setMyTimer(1000).then(() => console.log('i am first now second'));
 };
 
 button.addEventListener('click', getLocationHandler);
