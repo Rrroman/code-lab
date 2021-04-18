@@ -1,10 +1,10 @@
 function currySum(firstNumber) {
-  return (nextNumber) => {
-    if (nextNumber === undefined) {
-      return firstNumber;
+  return function (nextNumber) {
+    if (nextNumber) {
+      return currySum(firstNumber + nextNumber);
     }
 
-    return currySum(firstNumber + nextNumber);
+    return firstNumber;
   };
 }
 
