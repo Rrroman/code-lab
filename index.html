@@ -10,5 +10,11 @@
   </head>
   <body>
     <h1>Look in console there is something!</h1>
+    <div  onclick="alert(`won't work`)" style="background: red; width: 150px; height: 150px"">
+      <div onclick="event.stopPropagation()" style="background: yellow; width: 100px; height: 100px">
+        Click me
+        <div  onclick="alert(`inside`)" style="background: green; width: 50px; height: 50px"></div>
+      </div>
+    </div>
   </body>
 </html>

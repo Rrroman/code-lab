@@ -1,54 +1,35 @@
-const bodyElement = document.querySelector('body');
+function sumCurry(firstNum) {
+  console.log('Logging...', firstNum);
+  return (nextNumber) => sumCurry(firstNum + nextNumber);
+}
 
-const button = document.createElement('button');
-button.dataset.getLocation = 'get-location';
-button.setAttribute('data-new-id', 'second');
-button.textContent = 'Get Location';
+sumCurry(5)(6)(3)(10)(20);
 
-bodyElement.appendChild(button);
+let str = 'avKkva';
 
-const getLocation = (options) => {
-  const promise = new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(
-      (positionData) => {
-        resolve(positionData);
-      },
-      (error) => {
-        reject(error);
-      },
-      options
-    );
-  });
+const pal = (str) =>
+  str.toLowerCase() === str.split('').reverse().join('').toLowerCase()
+    ? 'It is Pallindrome'
+    : 'It is not';
 
-  return promise;
-};
-
-const setMyTimer = (delay, data) => {
-  const promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('Timer resolved');
-    }, delay);
-  });
-
-  return promise;
-};
-
-const getLocationHandler = async () => {
-  let positionData;
-  let timerData;
-  try {
-    positionData = await getLocation();
-    timerData = await setMyTimer(1000);
-  } catch (error) {
-    console.log(error);
-    positionData = 'Please try later again';
-    timerData = 'Backup data [], {} ...';
+const pal2 = (str) => {
+  let result;
+  str = str.toLowerCase();
+  for (let i = 0, j = str.length - 1; i < str.length / 2, j / 2 > 0; i++, j--) {
+    if (str[i] === str[j]) {
+      console.log(str[i], str[j]);
+      result = 'It is Pallindrome';
+    } else {
+      return 'It is not';
+    }
   }
-
-  console.log(positionData, timerData);
-
-  // setMyTimer(1000).then(() => console.log('Timer done!'));
-  // console.log('Getting position ...');
+  return result;
 };
 
-button.addEventListener('click', getLocationHandler);
+console.time();
+console.log(pal(str));
+console.timeEnd();
+console.log('=====================');
+console.time();
+console.log(pal2(str));
+console.timeEnd();
