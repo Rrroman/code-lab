@@ -1,31 +1,47 @@
-function sumCurry(firstNum) {
-  console.log('Logging...', firstNum);
-  return (nextNumber) => sumCurry(firstNum + nextNumber);
-}
+const inc = (function () {
+  let counter = 0;
+  return function () {
+    counter += 1;
+    console.log(counter);
+    // return counter;
+  };
+})();
 
-sumCurry(5)(6)(3)(10)(20);
+inc();
+inc();
+inc();
+inc();
+inc();
 
-let str = 'avKkva';
+//===============
 
-const pal = (str) =>
-  str.toLowerCase() === str.split('').reverse().join('').toLowerCase()
-    ? 'It is Pallindrome'
-    : 'It is not';
-
-const pal2 = (str) => {
-  str = str.toLowerCase();
-  for (let i = 0, j = str.length - 1; i < str.length / 2, j / 2 > 0; i++, j--) {
-    if (str[i] !== str[j]) {
-      return 'It is not';
-    }
-  }
-  return 'It is Pallindrome';
+const obj = {
+  a: 42,
+  say: function () {
+    setTimeout(
+      // () => without arrow function
+      function () {
+        console.log(this.a);
+      }.bind(this)
+    );
+  },
 };
 
-console.time();
-console.log(pal(str));
-console.timeEnd();
-console.log('=====================');
-console.time();
-console.log(pal2(str));
-console.timeEnd();
+obj.say();
+
+//=================
+
+const fruits = ['banana', 'cherry', 'grape', 'banana', 'banana', 'grape'];
+
+const sortFruits = (arr) => {
+  const result = arr.reduce((obj, fruit) => {
+    obj[fruit] = obj[fruit] ? obj[fruit] + 1 : 1;
+    return obj;
+  }, {});
+
+  const fruits = Object.keys(result);
+  const sorted = fruits.sort((a, b) => result[b] - result[a]);
+  return sorted;
+};
+
+sortFruits(fruits);
