@@ -34,15 +34,15 @@ obj.say();
 const fruits = ['banana', 'cherry', 'grape', 'banana', 'banana', 'grape'];
 
 const sortFruits = (arr) => {
-  const result = arr.reduce((obj, fruit) => {
+  const fruitAmountObj = arr.reduce((obj, fruit) => {
     obj[fruit] = obj[fruit] ? obj[fruit] + 1 : 1;
     return obj;
   }, {});
 
-  const objKeys = Object.keys(result);
+  const objKeys = Object.keys(fruitAmountObj);
   const sorted = objKeys.sort(
     (keyValueSmaller, keyValueBigger) =>
-      result[keyValueBigger] - result[keyValueSmaller]
+      fruitAmountObj[keyValueBigger] - fruitAmountObj[keyValueSmaller]
   );
   return sorted;
 };
