@@ -13,17 +13,13 @@ const pal = (str) =>
     : 'It is not';
 
 const pal2 = (str) => {
-  let result;
   str = str.toLowerCase();
   for (let i = 0, j = str.length - 1; i < str.length / 2, j / 2 > 0; i++, j--) {
-    if (str[i] === str[j]) {
-      console.log(str[i], str[j]);
-      result = 'It is Pallindrome';
-    } else {
+    if (str[i] !== str[j]) {
       return 'It is not';
     }
   }
-  return result;
+  return 'It is Pallindrome';
 };
 
 console.time();
