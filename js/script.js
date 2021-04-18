@@ -39,9 +39,20 @@ const sortFruits = (arr) => {
     return obj;
   }, {});
 
-  const fruits = Object.keys(result);
-  const sorted = fruits.sort((a, b) => result[b] - result[a]);
+  const objKeys = Object.keys(result);
+  const sorted = objKeys.sort(
+    (keyValueSmaller, keyValueBigger) =>
+      result[keyValueBigger] - result[keyValueSmaller]
+  );
   return sorted;
 };
 
-sortFruits(fruits);
+console.log(sortFruits(fruits));
+
+//================
+
+const multiplyByTwo = (...rest) => {
+  return rest.map((number) => number * 2);
+};
+
+console.log(multiplyByTwo(1, 2, 3, 4, 10));
