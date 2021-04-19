@@ -1,12 +1,28 @@
-function currySum(firstNumber) {
-  return function (nextNumber) {
-    if (nextNumber) {
-      return currySum(firstNumber + nextNumber);
-    }
+const sum = (a, b) => a + b;
+const multiply = (a, b) => a * b;
 
-    return firstNumber;
+function curry(callback) {
+  return function operation(firstNumber) {
+    return (nextNumber) => {
+      if (nextNumber) {
+        return operation(callback(firstNumber, nextNumber));
+      }
+      return firstNumber;
+    };
   };
 }
 
-const result = currySum(1)(2)(3)(4)();
-console.log(result);
+const resultSum = curry(sum)(2)(3)(2)();
+console.log(resultSum);
+const resultMultiply = curry(multiply)(2)(3)(2)();
+console.log(resultMultiply);
+
+// function curry(firstNumber) {
+//   return (nextNumber) => {
+//     if (nextNumber) {
+//       return currySum(firstNumber + nextNumber);
+//     }
+
+//     return firstNumber;
+//   };
+// }
