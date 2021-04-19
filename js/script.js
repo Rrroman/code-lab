@@ -1,28 +1,24 @@
-const sum = (a, b) => a + b;
-const multiply = (a, b) => a * b;
+const array = [1, 2, 2, 3, 4, 4, 4, 5, 5, 6, 7];
 
-function curry(callback) {
-  return function operation(firstNumber) {
-    return (nextNumber) => {
-      if (nextNumber) {
-        return operation(callback(firstNumber, nextNumber));
-      }
-      return firstNumber;
-    };
-  };
+const removeDuplicates = array.filter(
+  (number, index, arr) => arr.indexOf(number) === index
+);
+
+console.log(removeDuplicates);
+
+function removeDup(arr) {
+  const filtered = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr.indexOf(arr[i]) === i) {
+      filtered.push(arr[i]);
+    }
+  }
+
+  return filtered;
 }
 
-const resultSum = curry(sum)(2)(3)(2)();
-console.log(resultSum);
-const resultMultiply = curry(multiply)(2)(3)(2)();
-console.log(resultMultiply);
+console.log(removeDup(array));
 
-// function curry(firstNumber) {
-//   return (nextNumber) => {
-//     if (nextNumber) {
-//       return currySum(firstNumber + nextNumber);
-//     }
-
-//     return firstNumber;
-//   };
-// }
+const filtered = [...new Set(array)];
+console.log(filtered);
