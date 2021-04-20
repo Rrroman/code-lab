@@ -1,28 +1,15 @@
-const array = [1, 2, 2, 3, 4, 4, 4, 5, 5, 6, 7];
+const mixedArray = [1, 2, 2, 3, 3, 3, 4, 5, 'hi', 'hi', 'I', 'am', 'Roman'];
 
-function removeDup(arr) {
-  const filtered = [];
+const setNumbers = new Set(mixedArray);
 
-  for (let i = 0; i < arr.length; i++) {
-    if (filtered.includes(arr[i])) {
-      continue;
-    }
-    filtered.push(arr[i]);
-  }
-
-  return filtered;
+if (setNumbers.has('hi')) {
+  setNumbers.delete('hi');
 }
 
-console.log(removeDup(array));
+for (const entry of setNumbers.entries()) {
+  console.log(entry);
+}
 
-const removeDuplicates = (arr) => {
-  const temp = [];
-
-  arr.forEach((number) => {
-    temp.includes(number) ? false : temp.push(number);
-  });
-
-  return temp;
-};
-
-console.log(removeDuplicates(array));
+// for (const entry of setNumbers.keys()) {
+//   console.log(entry);
+// }
