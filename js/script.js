@@ -1,21 +1,34 @@
-const person = { name: 'Roman' };
+let person = { name: 'Roman' };
 const cat = { name: 'Fluffy' };
 
-const group = new Map([
-  [person, [cat, 'Mew mew', { age: 2, weight: [1, 2, 2.5] }]],
-]);
-const myMap = new Map([['hi', 42]]);
+let friend = { name: 'Bob' };
 
-console.log('Get my cat obj -> ', group.get(person));
-console.log(myMap);
+const group = new WeakSet();
 
-console.log('===============');
-for (const entry of group.entries()) {
-  console.log(entry);
-}
-for (const [key, value] of group.entries()) {
-  console.log(key, value);
-}
+group.add(friend);
+console.log(group);
 
-console.log(group.has(cat));
-console.log(group.has(person));
+// some operations ...
+friend = null;
+console.log(group);
+
+/**
+ * new WeakSet() - release data for garbage collector so it can delete unused data/property,
+ * browser decides when it wil be deleted.
+ *
+ * new Set() don't let garbage collector to delete, property will be deleted only if
+ * we do this by ourself with help of .delete() method
+ *
+ * Same for WeakMap
+ * also keys must be an object
+ *
+ * This structures is good when you don't want to delete manually clearing data'
+ */
+
+const personData = new WeakMap();
+
+personData.set(person, 'Extra data here');
+
+person = null;
+
+console.log(personData);
