@@ -7,4 +7,32 @@ const objAZ = {
   a: 'strings keys not sorted alphabetically',
   b: 123,
 };
-console.log(objAZ);
+
+Object.defineProperty(objAZ, 'q', {
+  value: 'i am here from defineProperties',
+  writable: false,
+});
+
+objAZ.q = 'Will i change?';
+
+console.log(objAZ.q);
+
+const myObj = Object.defineProperties(
+  {},
+  {
+    hi: {
+      value: 'Hello!',
+      writable: true,
+      configurable: true,
+    },
+  }
+);
+console.log(myObj.hi);
+myObj.hi = [
+  'i am array now? other type Hello?!?!? oh so part about type is for other descriptors',
+];
+console.log(myObj.hi);
+
+delete myObj.hi;
+
+console.log(myObj.hi);
