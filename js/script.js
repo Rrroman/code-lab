@@ -35,15 +35,17 @@ console.log(myObj.hi);
 
 delete myObj.hi;
 
-Object.defineProperty(myObj, 'getHi', {
-  get: function getHi() {
-    return this.hi + ' i am From Getter';
+Object.defineProperties(myObj, {
+  getHi: {
+    get: function getHi() {
+      return this.hi + ' i am From Getter';
+    },
   },
-});
 
-Object.defineProperty(myObj, 'setHi', {
-  set: function getHi(str) {
-    return (this.hi = str);
+  setHi: {
+    set: function getHi(str) {
+      return (this.hi = str);
+    },
   },
 });
 
