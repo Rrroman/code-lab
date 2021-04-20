@@ -1,15 +1,21 @@
-const mixedArray = [1, 2, 2, 3, 3, 3, 4, 5, 'hi', 'hi', 'I', 'am', 'Roman'];
+const person = { name: 'Roman' };
+const cat = { name: 'Fluffy' };
 
-const setNumbers = new Set(mixedArray);
+const group = new Map([
+  [person, [cat, 'Mew mew', { age: 2, weight: [1, 2, 2.5] }]],
+]);
+const myMap = new Map([['hi', 42]]);
 
-if (setNumbers.has('hi')) {
-  setNumbers.delete('hi');
-}
+console.log('Get my cat obj -> ', group.get(person));
+console.log(myMap);
 
-for (const entry of setNumbers.entries()) {
+console.log('===============');
+for (const entry of group.entries()) {
   console.log(entry);
 }
+for (const [key, value] of group.entries()) {
+  console.log(key, value);
+}
 
-// for (const entry of setNumbers.keys()) {
-//   console.log(entry);
-// }
+console.log(group.has(cat));
+console.log(group.has(person));
