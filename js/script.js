@@ -4,9 +4,10 @@ function removeDup(arr) {
   const filtered = [];
 
   for (let i = 0; i < arr.length; i++) {
-    if (filtered.indexOf(arr[i]) === -1) {
-      filtered.push(arr[i]);
+    if (filtered.includes(arr[i])) {
+      continue;
     }
+    filtered.push(arr[i]);
   }
 
   return filtered;
@@ -18,7 +19,7 @@ const removeDuplicates = (arr) => {
   const temp = [];
 
   arr.forEach((number) => {
-    temp.indexOf(number) === -1 ? temp.push(number) : false;
+    temp.includes(number) ? false : temp.push(number);
   });
 
   return temp;
