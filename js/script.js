@@ -1,54 +1,70 @@
-const objAZ = {
-  4: 32,
-  1: 100,
-  z: 'String key',
-  2: 'i am second',
-  3: 'this works because all keys are numbers',
-  a: 'strings keys not sorted alphabetically',
-  b: 123,
-};
+class Course {
+  #price;
 
-Object.defineProperty(objAZ, 'q', {
-  value: 'i am here from defineProperties',
-  writable: false,
-});
-
-objAZ.q = 'Will i change?';
-
-console.log(objAZ.q);
-
-const myObj = Object.defineProperties(
-  {},
-  {
-    hi: {
-      value: 'Hello!',
-      writable: true,
-      configurable: false,
-    },
+  get price() {
+    return '$' + this.#price;
   }
-);
-console.log(myObj.hi);
-myObj.hi = [
-  'i am array now? other type Hello?!?!? oh so part about type is for other descriptors',
-];
-console.log(myObj.hi);
 
-delete myObj.hi;
+  set price(price) {
+    if (price <= 0) {
+      this.#price = 1;
+      return;
+    }
+    this.#price = parseInt(price);
+  }
 
-Object.defineProperties(myObj, {
-  getHi: {
-    get: function getHi() {
-      return this.hi + ' i am From Getter';
-    },
-  },
+  constructor(title, length, price) {
+    this.title = title;
+    this.length = length;
+    this.price = price;
+  }
 
-  setHi: {
-    set: function getHi(str) {
-      return (this.hi = str);
-    },
-  },
-});
+  getValue() {
+    return (this.length / this.#price).toFixed(2);
+  }
 
-console.log(myObj.getHi);
-myObj.setHi = 'i suppose hi!?';
-console.log(myObj.hi);
+  printSummary() {
+    console.log(
+      `For buying our ${
+        this.title
+      } you will get ${this.getValue()} value from ${this.length} and ${
+        this.price
+      }`
+    );
+  }
+}
+
+const js = new Course('JS', 24, 20);
+const react = new Course('React', 12, 14);
+
+console.log(js, react);
+console.log(js.printSummary());
+console.log(react.printSummary());
+
+class PracticalCourse extends Course {
+  constructor(title, length, price, numOfExercise) {
+    super(title, length, price, numOfExercise);
+    this.numOfExercise = numOfExercise;
+  }
+}
+
+class TheoreticalCourse extends Course {
+  constructor(title, length, price) {
+    super(title, length, price);
+  }
+
+  publish() {
+    console.log('Its publishing');
+  }
+}
+
+const practice = new PracticalCourse('Angular', 30, 18, 34);
+const theoreticalCourse = new TheoreticalCourse('NextJs', 20, 11, 33);
+
+practice.printSummary();
+theoreticalCourse.printSummary();
+console.log(practice.numOfExercise);
+console.log(theoreticalCourse.publish());
+
+theoreticalCourse.price = -10;
+theoreticalCourse.printSummary();
